@@ -1,17 +1,17 @@
 from fastapi import FastAPI
+from app.database import engine
+from app.models import Base
+
+Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
 
 @app.get("/")
 def home():
-    return {"message": "Welcome to AI Career Digital Twin Backend 🚀"}
+    return {"message": "Welcome to AI Career Digital Twin 🚀"}
 
 
-@app.get("/about")
-def about():
-    return {
-        "project": "AI Career Digital Twin",
-        "version": "1.0",
-        "developer": "Vanaja"
-    }
+@app.get("/test-db")
+def test_db():
+    return {"message": "Database Connected Successfully ✅"}
