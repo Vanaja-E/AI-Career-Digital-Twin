@@ -1,31 +1,55 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
+  const navigate = useNavigate();
 
-  const handleLogin = () => {
-    if (email === "" || password === "") {
-      setError("Please fill all the fields.");
-      return;
-    }
+const handleLogin = async () => {
+  if (email === "" || password === "") {
+    setError("Please fill all the fields.");
+    return;
+  }
 
-    if (!email.includes("@")) {
-      setError("Please enter a valid email address.");
-      return;
-    }
+  if (!email.includes("@")) {
+    setError("Please enter a valid email address.");
+    return;
+  }
 
-    if (password.length < 8) {
-      setError("Password must be at least 8 characters.");
-      return;
-    }
+  if (password.length < 8) {
+    setError("Password must be at least 8 characters.");
+    return;
+  }
+
+  try {
+    const response = await axios.post(
+      "http://127.0.0.1:8000/login",
+      {
+        email: email,
+        password: password,
+      }
+    );
+
+    alert(response.data.message);
 
     setError("");
-    alert("Login Successful!");
-  };
+    setEmail("");
+    setPassword("");
+
+    navigate("/dashboard");
+
+  } catch (err) {
+    if (err.response) {
+      setError(err.response.data.detail);
+    } else {
+      setError("Unable to connect to the server.");
+    }
+  }
+};
 
   return (
     <div className="login-container">
