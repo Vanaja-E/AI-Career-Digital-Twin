@@ -1,10 +1,13 @@
 from fastapi import FastAPI
 from app.database import engine
 from app.models import Base
+from app.routes.users import router as user_router
 
 Base.metadata.create_all(bind=engine)
 
-app = FastAPI()
+app = FastAPI(title="AI Career Digital Twin API")
+
+app.include_router(user_router)
 
 
 @app.get("/")
