@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 function Signup() {
   const [name, setName] = useState("");
@@ -9,35 +10,60 @@ function Signup() {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
 
-  const handleSignup = () => {
-    if (
-      name === "" ||
-      email === "" ||
-      password === "" ||
-      confirmPassword === ""
-    ) {
-      setError("Please fill all the fields.");
-      return;
-    }
+const handleSignup = async () => {
+  if (
+    name === "" ||
+    email === "" ||
+    password === "" ||
+    confirmPassword === ""
+  ) {
+    setError("Please fill all the fields.");
+    return;
+  }
 
-    if (!email.includes("@")) {
-      setError("Please enter a valid email.");
-      return;
-    }
+  if (!email.includes("@")) {
+    setError("Please enter a valid email.");
+    return;
+  }
 
-    if (password.length < 8) {
-      setError("Password must be at least 8 characters.");
-      return;
-    }
+  if (password.length < 8) {
+    setError("Password must be at least 8 characters.");
+    return;
+  }
 
-    if (password !== confirmPassword) {
-      setError("Passwords do not match.");
-      return;
-    }
+  if (password !== confirmPassword) {
+    setError("Passwords do not match.");
+    return;
+  }
 
-    setError("");
+  try {
+    const response = await axios.post(
+      "http://127.0.0.1:8000/signup",
+      {
+        full_name: name,
+        email: email,
+        password: password,
+      }
+    );
+
     alert("Account Created Successfully!");
-  };
+
+    console.log(response.data);
+
+    setName("");
+    setEmail("");
+    setPassword("");
+    setConfirmPassword("");
+    setError("");
+
+  } catch (err) {
+    if (err.response) {
+      setError(err.response.data.detail);
+    } else {
+      setError("Unable to connect to the server.");
+    }
+  }
+};
 
   return (
     <div className="signup-container">
