@@ -14,3 +14,9 @@ class UserResponse(BaseModel):
 
     class Config:
         from_attributes = True
+
+#login ku 
+
+class UserLogin(BaseModel):
+    email: EmailStr
+    password: str
