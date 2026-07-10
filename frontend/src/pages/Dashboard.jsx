@@ -27,36 +27,42 @@ function Dashboard() {
             emoji="📄"
             title="Resume Analyzer"
             description="Upload and analyze your resume using AI."
+            path="/resume-analyzer"
           />
 
           <DashboardCard
             emoji="🎯"
             title="Skill Gap Analysis"
             description="Find missing skills for your dream job."
+            path="/skill-gap"
           />
 
           <DashboardCard
             emoji="🛣"
             title="Career Roadmap"
             description="Generate a personalized career roadmap."
+            path="/career-roadmap"
           />
 
           <DashboardCard
             emoji="🎤"
             title="Interview Preparation"
             description="Practice AI-generated interview questions."
+            path="/interview-prep"
           />
 
           <DashboardCard
             emoji="💼"
             title="Job Recommendations"
             description="Discover jobs based on your skills."
+            path="/job-recommendation"
           />
 
           <DashboardCard
             emoji="📊"
             title="Resume Score"
             description="Check your ATS resume score."
+            path="/resume-score"
           />
 
         </div>
