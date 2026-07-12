@@ -1,6 +1,5 @@
 import { Routes, Route } from "react-router-dom";
 
-
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
@@ -14,6 +13,7 @@ import InterviewPrep from "./pages/InterviewPrep";
 import JobRecommendation from "./pages/JobRecommendation";
 import ResumeScore from "./pages/ResumeScore";
 import Profile from "./pages/Profile";
+import "./App.css";
 
 function App() {
   return (

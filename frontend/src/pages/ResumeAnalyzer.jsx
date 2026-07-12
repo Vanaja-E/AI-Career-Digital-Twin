@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useState,useContext } from "react";
 import axios from "axios";
 import "../styles/ResumeAnalyzer.css";
+import { ResumeContext } from "../context/ResumeContext";
 
 function ResumeAnalyzer() {
   const [file, setFile] = useState(null);
-  const [resumeData, setResumeData] = useState(null);
+  const { resumeData, setResumeData } = useContext(ResumeContext);
 
   const handleUpload = async () => {
     if (!file) {
