@@ -34,6 +34,8 @@ function App() {
 
       <Route path="/interview-prep" element={<InterviewPrep />} />
 
+      <Route path="/profile" element={<Profile />} />
+
       <Route
         path="/job-recommendation"
         element={<JobRecommendation />}

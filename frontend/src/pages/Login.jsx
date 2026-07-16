@@ -36,6 +36,14 @@ const handleLogin = async () => {
 
     alert(response.data.message);
 
+    localStorage.setItem(
+      "user",
+      JSON.stringify({
+        name: response.data.name,
+        email: response.data.email
+      })
+    );
+
     setError("");
     setEmail("");
     setPassword("");

@@ -1,10 +1,11 @@
-import { useState,useContext } from "react";
+import { useState, useContext } from "react";
 import axios from "axios";
-import "../styles/ResumeAnalyzer.css";
 import { ResumeContext } from "../context/ResumeContext";
+import "../styles/ResumeAnalyzer.css";
 
 function ResumeAnalyzer() {
   const [file, setFile] = useState(null);
+
   const { resumeData, setResumeData } = useContext(ResumeContext);
 
   const handleUpload = async () => {
@@ -23,149 +24,163 @@ function ResumeAnalyzer() {
       );
 
       setResumeData(response.data);
+
+      alert("Resume uploaded successfully ✅");
     } catch (error) {
-      alert("Upload Failed!");
       console.log(error);
+      alert("Upload Failed!");
     }
   };
 
   return (
     <div className="resume-container">
-      <h1 className="resume-title">📄 Resume Analyzer</h1>
 
-      <p className="resume-subtitle">
-        Upload your resume and analyze it using AI.
-      </p>
+      <div className="resume-header">
 
-      <div className="upload-section">
+        <h1>📄 Resume Analyzer</h1>
+
+        <p>
+          Upload your resume and let AI analyze it.
+        </p>
+
+      </div>
+
+      <div className="upload-card">
+
         <input
           type="file"
           accept=".pdf"
           onChange={(e) => setFile(e.target.files[0])}
         />
 
-        <button className="upload-btn" onClick={handleUpload}>
+        <button onClick={handleUpload}>
           Upload Resume
         </button>
+
       </div>
 
       {resumeData && (
-        <>
-          {/* ATS Score Card */}
-          <div className="ats-card">
-            <h2>⭐ ATS Resume Score</h2>
 
-            <div className="ats-score">
-              {resumeData.ats_score}/100
+        <>
+
+          <div className="top-grid">
+
+            <div className="status-card">
+
+              <h2>✅ Resume Status</h2>
+
+              <div className="status-list">
+
+                <div>✔ Resume Uploaded Successfully</div>
+
+                <div>✔ AI Parsing Completed</div>
+
+                <div>✔ Skill Gap Ready</div>
+
+                <div>✔ Career Roadmap Ready</div>
+
+                <div>✔ Interview Ready</div>
+
+                <div>✔ Job Recommendation Ready</div>
+
+              </div>
+
             </div>
 
-            <h3>Suggestions</h3>
+            <div className="score-card">
 
-            <ul className="info-list">
-              {resumeData.suggestions?.length > 0 ? (
-                resumeData.suggestions.map((item, index) => (
-                  <li key={index}>{item}</li>
-                ))
-              ) : (
-                <li>Excellent Resume! No suggestions.</li>
-              )}
-            </ul>
+              <h2>⭐ ATS Resume Score</h2>
+
+              <div className="score-circle">
+
+                {resumeData.ats_score}
+
+              </div>
+
+              <h3>
+
+                {resumeData.ats_score >= 90
+                  ? "Excellent Resume 🚀"
+                  : resumeData.ats_score >= 75
+                  ? "Very Good Resume 👍"
+                  : resumeData.ats_score >= 60
+                  ? "Good Resume 🙂"
+                  : "Needs Improvement"}
+
+              </h3>
+
+            </div>
+
           </div>
 
-          {/* Resume Details */}
-          <div className="details-card">
-            <h2>Resume Details</h2>
+          <div className="full-card">
 
-            <p className="detail-item">
-              <strong>👤 Name:</strong> {resumeData.name}
-            </p>
+            <h2>💡 AI Suggestions</h2>
 
-            <p className="detail-item">
-              <strong>📧 Email:</strong> {resumeData.email}
-            </p>
+            {resumeData.suggestions?.length > 0 ? (
 
-            <p className="detail-item">
-              <strong>📱 Phone:</strong> {resumeData.phone}
-            </p>
+              <ul>
 
-            {/* Skills */}
-            <h3 className="section-title">💻 Skills</h3>
+                {resumeData.suggestions.map((item, index) => (
 
-            <div className="skills-container">
-              {resumeData.skills?.length > 0 ? (
-                resumeData.skills.map((skill, index) => (
-                  <span key={index} className="skill-badge">
-                    {skill}
-                  </span>
-                ))
-              ) : (
-                <p className="no-data">No skills found.</p>
-              )}
+                  <li key={index}>{item}</li>
+
+                ))}
+
+              </ul>
+
+            ) : (
+
+              <p className="success">
+
+                Excellent Resume! No suggestions.
+
+              </p>
+
+            )}
+
+          </div>
+
+          <div className="full-card">
+
+            <h2>💻 Skills Detected</h2>
+
+            <div className="skills">
+
+              {resumeData.skills?.map((skill, index) => (
+
+                <span
+                  key={index}
+                  className="skill"
+                >
+                  {skill}
+                </span>
+
+              ))}
+
             </div>
 
-            {/* Education */}
-            <h3 className="section-title">🎓 Education</h3>
+          </div>
 
-            <ul className="info-list">
-              {resumeData.education?.length > 0 ? (
-                resumeData.education.map((item, index) => (
-                  <li key={index}>{item}</li>
-                ))
-              ) : (
-                <p className="no-data">No education found.</p>
-              )}
-            </ul>
+          <details className="full-card">
 
-            {/* Experience */}
-            <h3 className="section-title">💼 Experience</h3>
+            <summary>
 
-            <ul className="info-list">
-              {resumeData.experience?.length > 0 ? (
-                resumeData.experience.map((item, index) => (
-                  <li key={index}>{item}</li>
-                ))
-              ) : (
-                <p className="no-data">No experience found.</p>
-              )}
-            </ul>
+              📄 View Extracted Resume
 
-            {/* Projects */}
-            <h3 className="section-title">📂 Projects</h3>
-
-            <ul className="info-list">
-              {resumeData.projects?.length > 0 ? (
-                resumeData.projects.map((item, index) => (
-                  <li key={index}>{item}</li>
-                ))
-              ) : (
-                <p className="no-data">No projects found.</p>
-              )}
-            </ul>
-
-            {/* Certificates */}
-            <h3 className="section-title">📜 Certificates</h3>
-
-            <ul className="info-list">
-              {resumeData.certificates?.length > 0 ? (
-                resumeData.certificates.map((item, index) => (
-                  <li key={index}>{item}</li>
-                ))
-              ) : (
-                <p className="no-data">No certificates found.</p>
-              )}
-            </ul>
-
-            {/* Extracted Resume Text */}
-            <h3 className="section-title">📄 Extracted Resume Text</h3>
+            </summary>
 
             <textarea
-              className="resume-text"
-              value={resumeData.text}
               readOnly
+              value={resumeData.text}
             />
-          </div>
+
+          </details>
+
         </>
+
       )}
+
     </div>
   );
 }

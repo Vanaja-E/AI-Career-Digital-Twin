@@ -1,15 +1,22 @@
 import { useNavigate } from "react-router-dom";
 
-function DashboardCard({ title, description, emoji, path }) {
+function DashboardCard({
+  emoji,
+  title,
+  description,
+  path,
+}) {
 
   const navigate = useNavigate();
 
   return (
     <div className="dashboard-card">
 
-      <h2>
-        {emoji} {title}
-      </h2>
+      <div className="card-icon">
+        {emoji}
+      </div>
+
+      <h2>{title}</h2>
 
       <p>{description}</p>
 
