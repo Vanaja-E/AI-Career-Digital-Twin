@@ -19,7 +19,7 @@ function SkillGap() {
     try {
 
       const response = await axios.post(
-        "http://127.0.0.1:8000/skill-gap",
+        "https://ai-career-digital-twin-7q8b.onrender.com/skill-gap",
         {
           skills: resumeData.skills,
           target_role: role,
