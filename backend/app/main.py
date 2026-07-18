@@ -27,6 +27,7 @@ app.add_middleware(
     "http://localhost:5174",
     "http://127.0.0.1:5174",
     "https://ai-career-digital-twin-gob0vt9x9-vanaja.vercel.app",
+    "https://ai-career-digital-twin-k0hl.vercel.app",
     ],
     allow_credentials=True,
     allow_methods=["*"],
