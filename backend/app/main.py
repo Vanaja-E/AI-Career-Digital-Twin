@@ -1,6 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+print("✅ MAIN.PY LOADED")
+
 from app.database import engine
 from app.models import Base
 
@@ -20,10 +22,11 @@ app = FastAPI(title="AI Career Digital Twin API")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "http://localhost:5173",
-        "http://127.0.0.1:5173",
-        "http://localhost:5174",
-        "http://127.0.0.1:5174",
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+    "http://localhost:5174",
+    "http://127.0.0.1:5174",
+    "https://ai-career-digital-twin-gob0vt9x9-vanaja.vercel.app",
     ],
     allow_credentials=True,
     allow_methods=["*"],
