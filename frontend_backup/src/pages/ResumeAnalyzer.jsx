@@ -19,7 +19,7 @@ function ResumeAnalyzer() {
 
     try {
       const response = await axios.post(
-        "http://127.0.0.1:8000/upload-resume",
+        "https://ai-career-digital-twin-7q8b.onrender.com/upload-resume",
         formData
       );
 

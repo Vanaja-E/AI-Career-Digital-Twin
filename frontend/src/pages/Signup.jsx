@@ -38,7 +38,7 @@ const handleSignup = async () => {
 
   try {
     const response = await axios.post(
-      "http://127.0.0.1:8000/signup",
+      "https://ai-career-digital-twin-7q8b.onrender.com/signup",
       {
         full_name: name,
         email: email,

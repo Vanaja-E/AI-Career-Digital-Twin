@@ -15,7 +15,7 @@ function JobRecommendation() {
 
     try {
       const response = await axios.post(
-        "http://127.0.0.1:8000/job-recommendation",
+        "https://ai-career-digital-twin-7q8b.onrender.com/job-recommendation",
         {
           skills: resumeData.skills,
         }

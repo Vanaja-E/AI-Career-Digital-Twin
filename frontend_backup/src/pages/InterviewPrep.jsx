@@ -16,7 +16,7 @@ function InterviewPrep() {
 
     try {
       const response = await axios.post(
-        "http://127.0.0.1:8000/interview-prep",
+        "https://ai-career-digital-twin-7q8b.onrender.com/interview-prep",
         {
           skills: resumeData.skills,
         }
