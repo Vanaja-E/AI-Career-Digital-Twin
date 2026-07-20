@@ -1,0 +1,165 @@
+/* ===========================
+   Profile Page
+=========================== */
+
+.profile-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+.profile-title {
+    text-align: center;
+    color: #2563eb;
+    margin-bottom: 30px;
+    font-size: 40px;
+}
+
+.empty-profile {
+    text-align: center;
+    background: white;
+    padding: 40px;
+    border-radius: 18px;
+    box-shadow: 0 8px 20px rgba(0,0,0,.08);
+}
+
+.empty-profile p {
+    color: gray;
+    margin-top: 10px;
+    font-size: 18px;
+}
+
+/* ===========================
+   Profile Header
+=========================== */
+
+.profile-card {
+    background: white;
+    padding: 35px;
+    border-radius: 18px;
+    box-shadow: 0 8px 20px rgba(0,0,0,.08);
+
+    display: flex;
+    align-items: center;
+    gap: 30px;
+
+    margin-bottom: 30px;
+}
+
+.profile-avatar {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+
+    background: linear-gradient(135deg,#2563eb,#3b82f6);
+
+    color: white;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-size: 48px;
+    font-weight: bold;
+}
+
+.profile-info h2 {
+    margin-bottom: 10px;
+    color: #222;
+}
+
+.profile-info p {
+    margin: 8px 0;
+    color: #555;
+    font-size: 17px;
+}
+
+.resume-badge {
+    display: inline-block;
+    margin-top: 15px;
+    background: #dcfce7;
+    color: #15803d;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: bold;
+}
+
+/* ===========================
+   Education + Experience
+=========================== */
+
+.profile-grid {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 25px;
+    margin-bottom: 25px;
+}
+
+/* ===========================
+   Cards
+=========================== */
+
+.info-card {
+    background: white;
+    padding: 30px;
+    border-radius: 18px;
+    box-shadow: 0 8px 20px rgba(0,0,0,.08);
+
+    margin-bottom: 25px;
+}
+
+.info-card h2 {
+    color: #2563eb;
+    margin-bottom: 20px;
+}
+
+.info-card ul {
+    padding-left: 20px;
+}
+
+.info-card li {
+    margin-bottom: 12px;
+    line-height: 1.6;
+    color: #444;
+}
+
+/* ===========================
+   Skills
+=========================== */
+
+.skills-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
+.skill-chip {
+    background: #e8f0ff;
+    color: #2563eb;
+    padding: 10px 18px;
+    border-radius: 25px;
+    font-weight: 600;
+    transition: .3s;
+}
+
+.skill-chip:hover {
+    background: #2563eb;
+    color: white;
+}
+
+/* ===========================
+   Responsive
+=========================== */
+
+@media(max-width:900px){
+
+    .profile-card{
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .profile-grid{
+        grid-template-columns:1fr;
+    }
+
+}
