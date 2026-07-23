@@ -58,7 +58,8 @@ def login(user: UserLogin, db: Session = Depends(get_db)):
         )
 
     return {
-        "message": "Login Successful",
-        "name": existing_user.full_name,
-        "email": existing_user.email
-    }
+       "message": "Login Successful",
+       "id": existing_user.id,
+       "name": existing_user.full_name,
+       "email": existing_user.email
+      }
