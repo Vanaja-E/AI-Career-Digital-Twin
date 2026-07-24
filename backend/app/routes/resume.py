@@ -6,6 +6,7 @@ import fitz
 
 from app.database import SessionLocal
 from app.models import Resume
+from app.services.gemini_service import generate_response
 
 from app.parser import (
     extract_name,
@@ -81,6 +82,32 @@ async def upload_resume(
     # Calculate ATS Score
     ats_score, suggestions = calculate_ats_score(resume_data)
 
+    # Gemini AI Resume Analysis
+    prompt = f"""
+You are an expert ATS Resume Reviewer.
+
+Analyze the following resume.
+
+Resume:
+{text}
+
+Provide the following:
+
+Professional Summary
+
+Strengths (bullet points)
+
+Weaknesses (bullet points)
+
+Missing Skills (bullet points)
+
+Career Suggestions (bullet points)
+
+Resume Improvements (bullet points)
+"""
+
+    ai_analysis = generate_response(prompt)
+
     # Save to database
     resume_record = Resume(
         user_id=user_id,
@@ -89,7 +116,7 @@ async def upload_resume(
         ats_score=ats_score,
         skills=", ".join(skills) if isinstance(skills, list) else str(skills),
         suggestions="\n".join(suggestions) if isinstance(suggestions, list) else str(suggestions),
-        summary=""
+        summary=ai_analysis
     )
 
     db.add(resume_record)
@@ -109,6 +136,7 @@ async def upload_resume(
         "certificates": certificates,
         "ats_score": ats_score,
         "suggestions": suggestions,
+        "ai_analysis": ai_analysis,
         "text": text,
         "resume_id": resume_record.id,
         "user_id": user_id
