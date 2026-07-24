@@ -14,7 +14,6 @@ function ResumeAnalyzer() {
       return;
     }
 
-    // Get logged-in user
     const user = JSON.parse(localStorage.getItem("user"));
 
     if (!user || !user.id) {
@@ -38,6 +37,8 @@ function ResumeAnalyzer() {
           },
         }
       );
+
+      console.log("Backend Response:", response.data);
 
       setResumeData(response.data);
 
@@ -80,6 +81,7 @@ function ResumeAnalyzer() {
       {resumeData && (
         <>
           <div className="top-grid">
+
             <div className="status-card">
               <h2>✅ Resume Status</h2>
 
@@ -107,9 +109,10 @@ function ResumeAnalyzer() {
                   ? "Very Good Resume 👍"
                   : resumeData.ats_score >= 60
                   ? "Good Resume 🙂"
-                  : "Needs Improvement"}
+                  : "Needs Improvement 😕"}
               </h3>
             </div>
+
           </div>
 
           <div className="full-card">
@@ -122,9 +125,7 @@ function ResumeAnalyzer() {
                 ))}
               </ul>
             ) : (
-              <p className="success">
-                Excellent Resume! No suggestions.
-              </p>
+              <p>Excellent Resume! No suggestions.</p>
             )}
           </div>
 
@@ -143,6 +144,25 @@ function ResumeAnalyzer() {
             </div>
           </div>
 
+          {/* Gemini AI Analysis */}
+
+          {resumeData.ai_analysis && (
+            <div className="full-card">
+              <h2>🤖 AI Resume Analysis</h2>
+
+              <pre
+                style={{
+                  whiteSpace: "pre-wrap",
+                  fontSize: "16px",
+                  lineHeight: "1.8",
+                  fontFamily: "inherit",
+                }}
+              >
+                {resumeData.ai_analysis}
+              </pre>
+            </div>
+          )}
+
           <details className="full-card">
             <summary>📄 View Extracted Resume</summary>
 
@@ -151,6 +171,7 @@ function ResumeAnalyzer() {
               value={resumeData.text}
             />
           </details>
+
         </>
       )}
     </div>

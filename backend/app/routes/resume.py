@@ -107,6 +107,9 @@ Resume Improvements (bullet points)
 """
 
     ai_analysis = generate_response(prompt)
+    print("=" * 60)
+    print(ai_analysis)
+    print("=" * 60)
 
     # Save to database
     resume_record = Resume(
