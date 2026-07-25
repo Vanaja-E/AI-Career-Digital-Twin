@@ -8,66 +8,51 @@ function SkillGap() {
 
   const [role, setRole] = useState("Python Full Stack Developer");
   const [result, setResult] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const analyzeSkillGap = async () => {
-
     if (!resumeData) {
       alert("Please upload your resume first.");
       return;
     }
 
     try {
+      setLoading(true);
 
       const response = await axios.post(
         "https://ai-career-digital-twin-7q8b.onrender.com/skill-gap",
         {
-          skills: resumeData.skills,
+          resume_text: resumeData.resume_text,
           target_role: role,
         }
       );
-
+      console.log("API Response:", response.data);
       setResult(response.data);
-
+      
     } catch (error) {
-
-      console.log(error);
+      console.error(error);
       alert("Skill Gap Analysis Failed!");
-
+    } finally {
+      setLoading(false);
     }
-  };
-
-  const calculateMatchScore = () => {
-
-    if (!result) return 0;
-
-    const total =
-      result.matched_skills.length +
-      result.missing_skills.length;
-
-    if (total === 0) return 0;
-
-    return Math.round(
-      (result.matched_skills.length / total) * 100
-    );
   };
 
   return (
     <div className="skill-gap-container">
+      <h1>🎯 Skill Gap Analyzer</h1>
 
-      <h1>🎯 Skill Gap Analysis</h1>
-
-      <p>Select your target role.</p>
+      <p>
+        Select your target career and get an AI-powered analysis of your
+        strengths, missing skills, roadmap, projects and interview preparation.
+      </p>
 
       {resumeData && (
         <>
-          <h3>Detected Skills</h3>
+          <h3>💻 Skills Detected</h3>
 
           <div className="skills-box">
             {resumeData.skills.map((skill, index) => (
-              <span
-                key={index}
-                className="green-skill"
-              >
+              <span key={index} className="green-skill">
                 {skill}
               </span>
             ))}
@@ -75,66 +60,126 @@ function SkillGap() {
         </>
       )}
 
-      <select
-        value={role}
-        onChange={(e) => setRole(e.target.value)}
-      >
-        <option>Python Full Stack Developer</option>
-        <option>Frontend Developer</option>
-        <option>Backend Developer</option>
-        <option>Data Scientist</option>
-      </select>
+      <div className="selector">
+        <label>Select Target Role</label>
+
+        <select
+          value={role}
+          onChange={(e) => setRole(e.target.value)}
+        >
+          <option>Python Full Stack Developer</option>
+          <option>Frontend Developer</option>
+          <option>Backend Developer</option>
+          <option>Data Scientist</option>
+        </select>
+      </div>
 
       <button onClick={analyzeSkillGap}>
-        Analyze Skill Gap
+        {loading ? "Analyzing..." : "Analyze Skill Gap"}
       </button>
 
       {result && (
         <div className="result-card">
 
-          <h2>{result.target_role}</h2>
+          <h2>🎯 {role}</h2>
 
-          <h3 className="match-score">
-            🎯 Match Score: {calculateMatchScore()}%
+          <h3>
+            Readiness Score : {result.readiness_score}%
           </h3>
 
-          <h3>✅ Skills You Have</h3>
-
-          <div className="skills-box">
-            {result.matched_skills.map((skill, index) => (
-              <span
-                key={index}
-                className="green-skill"
-              >
-                {skill}
-              </span>
-            ))}
+          <div className="progress-bar">
+            <div
+              className="progress-fill"
+              style={{
+                width: `${result.readiness_score}%`,
+              }}
+            ></div>
           </div>
+
+          <p className="ready-text">
+            {result.readiness_score >= 80
+              ? "🟢 Excellent! You are almost job ready."
+              : result.readiness_score >= 60
+              ? "🟡 Good progress. Keep learning."
+              : "🔴 Keep improving your skills."}
+          </p>
+
+          <hr />
+
+          <h3>💪 Strengths</h3>
+
+          <ul className="recommendation-list">
+            {result.strengths.map((item, index) => (
+              <li key={index}>{item}</li>
+            ))}
+          </ul>
+
+          <hr />
 
           <h3>❌ Missing Skills</h3>
 
           <div className="skills-box">
             {result.missing_skills.map((skill, index) => (
-              <span
-                key={index}
-                className="red-skill"
-              >
+              <span key={index} className="red-skill">
                 {skill}
               </span>
             ))}
           </div>
 
-          <h3>📚 Recommended Skills to Learn</h3>
+          <hr />
+
+                    <h3>📚 Learning Roadmap</h3>
 
           <ul className="recommendation-list">
-            {result.missing_skills.map((skill, index) => (
-              <li key={index}>{skill}</li>
+            {result.learning_roadmap.map((item, index) => (
+              <li key={index}>{item}</li>
             ))}
           </ul>
 
+          <hr />
+
+          <h3>🚀 Recommended Projects</h3>
+
+          <ul className="recommendation-list">
+            {result.recommended_projects.map((item, index) => (
+              <li key={index}>{item}</li>
+            ))}
+          </ul>
+
+          <hr />
+
+          <h3>📜 Recommended Certifications</h3>
+
+          <ul className="recommendation-list">
+            {result.certifications.map((item, index) => (
+              <li key={index}>{item}</li>
+            ))}
+          </ul>
+
+          <hr />
+
+          <h3>🎤 Interview Questions</h3>
+
+          <ul className="recommendation-list">
+            {result.interview_questions.map((item, index) => (
+              <li key={index}>{item}</li>
+            ))}
+          </ul>
+
+          <hr />
+
+          <h3>🤖 AI Career Advice</h3>
+
+          <div className="ai-analysis">
+            <pre>{result.career_advice}</pre>
+          </div>
+
+          <div className="success-box">
+            ✅ Skill Gap Analysis Completed Successfully
+          </div>
+
         </div>
       )}
-
     </div>
   );
 }

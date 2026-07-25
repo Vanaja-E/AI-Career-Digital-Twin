@@ -1,68 +1,74 @@
-# Skills required for different job roles
+from app.services.gemini_service import generate_response
+import json
+import re
 
-JOB_SKILLS = {
 
-    "Python Full Stack Developer": [
-        "Python",
-        "HTML",
-        "CSS",
-        "JavaScript",
-        "React",
-        "Node.js",
-        "SQL",
-        "Git"
+def generate_ai_skill_gap(resume_text, target_role):
+
+    prompt = f"""
+You are an expert AI Career Coach.
+
+Analyze the following resume for the target role.
+
+Resume:
+{resume_text}
+
+Target Role:
+{target_role}
+
+Return ONLY valid JSON.
+
+Format:
+
+{{
+    "readiness_score":85,
+    "strengths":[
+        "...",
+        "..."
     ],
-
-    "Data Scientist": [
-        "Python",
-        "Pandas",
-        "NumPy",
-        "Machine Learning",
-        "Deep Learning",
-        "SQL",
-        "TensorFlow"
+    "missing_skills":[
+        "...",
+        "..."
     ],
-
-    "Frontend Developer": [
-        "HTML",
-        "CSS",
-        "JavaScript",
-        "React",
-        "Git"
+    "learning_roadmap":[
+        "...",
+        "..."
     ],
+    "recommended_projects":[
+        "...",
+        "..."
+    ],
+    "certifications":[
+        "...",
+        "..."
+    ],
+    "interview_questions":[
+        "...",
+        "..."
+    ],
+    "career_advice":"..."
+}}
 
-    "Backend Developer": [
-        "Python",
-        "FastAPI",
-        "SQL",
-        "Git",
-        "Docker"
-    ]
-}
+Do not write markdown.
+Do not write explanations.
+Return JSON only.
+"""
 
+    response = generate_response(prompt)
 
-def analyze_skill_gap(resume_skills, target_role):
+    try:
+        cleaned = re.sub(r"```json|```", "", response).strip()
+        return json.loads(cleaned)
 
-    required_skills = JOB_SKILLS.get(target_role, [])
+    except Exception:
 
-    matched_skills = []
-
-    missing_skills = []
-
-    for skill in required_skills:
-
-        if skill in resume_skills:
-            matched_skills.append(skill)
-
-        else:
-            missing_skills.append(skill)
-
-    return {
-
-        "target_role": target_role,
-
-        "matched_skills": matched_skills,
-
-        "missing_skills": missing_skills
-
-    }
+        return {
+            "readiness_score": 0,
+            "strengths": [],
+            "missing_skills": [],
+            "learning_roadmap": [],
+            "recommended_projects": [],
+            "certifications": [],
+            "interview_questions": [],
+            "career_advice": response
+        }
