@@ -8,12 +8,14 @@ function CareerRoadmap() {
 
   const [role, setRole] = useState("Python Full Stack Developer");
   const [roadmap, setRoadmap] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const generateRoadmap = async () => {
     if (!resumeData) {
       alert("Please upload your resume first.");
       return;
     }
+    setLoading(true);
 
     try {
      const response = await axios.post(
@@ -27,10 +29,16 @@ function CareerRoadmap() {
      console.log("Roadmap Response:", response.data);
 
      setRoadmap(response.data);
-     
-    } catch (error) {
+
+    } 
+    
+    catch (error) {
       console.error(error);
       alert("Failed to generate roadmap!");
+    }
+
+    finally {
+      setLoading(false);
     }
   };
 
@@ -56,8 +64,12 @@ function CareerRoadmap() {
         <option>Machine Learning Engineer</option>
       </select>
 
-      <button className="roadmap-btn" onClick={generateRoadmap}>
-        Generate Roadmap
+      <button
+        className="roadmap-btn"
+        onClick={generateRoadmap}
+        disabled={loading}
+      >
+          {loading ? "Generating Roadmap..." : "Generate Roadmap"}
       </button>
 
       {roadmap && (
