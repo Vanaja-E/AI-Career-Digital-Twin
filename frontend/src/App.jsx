@@ -8,7 +8,7 @@ import NotFound from "./pages/NotFound";
 
 import ResumeAnalyzer from "./pages/ResumeAnalyzer";
 import SkillGap from "./pages/SkillGap";
-import ResumeOptimize from "./pages/ResumeOptimizer"
+import ResumeOptimizer from "./pages/ResumeOptimizer";
 import CareerRoadmap from "./pages/CareerRoadmap";
 import InterviewPrep from "./pages/InterviewPrep";
 import JobRecommendation from "./pages/JobRecommendation";
