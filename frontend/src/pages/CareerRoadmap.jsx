@@ -16,15 +16,18 @@ function CareerRoadmap() {
     }
 
     try {
-      const response = await axios.post(
-        "https://ai-career-digital-twin-7q8b.onrender.com/career-roadmap",
+     const response = await axios.post(
+       "https://ai-career-digital-twin-7q8b.onrender.com/career-roadmap",
         {
-          resume_text: resumeData.resume_text,
-          target_role: role,
+           resume_text: resumeData.resume_text,
+           target_role: role,
         }
       );
 
-      setRoadmap(response.data);
+     console.log("Roadmap Response:", response.data);
+
+     setRoadmap(response.data);
+     
     } catch (error) {
       console.error(error);
       alert("Failed to generate roadmap!");
