@@ -103,6 +103,15 @@ function Dashboard() {
           />
 
           <DashboardCard
+           emoji="📝"
+           title="Resume Optimizer"
+           description="Improve your resume using AI."
+           path="/resume-optimizer"
+          />
+
+        
+
+          <DashboardCard
             emoji="🛣"
             title="Career Roadmap"
             description="Generate your roadmap."
