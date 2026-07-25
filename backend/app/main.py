@@ -9,6 +9,7 @@ from app.models import Base
 from app.routes.users import router as user_router
 from app.routes.resume import router as resume_router
 from app.routes.skill_gap import router as skill_gap_router
+from app.routes.resume_optimizer_routes import router as resume_optimizer_router
 from app.routes.career_roadmap import router as career_router
 from app.routes.job_recommendation import router as job_router
 from app.routes.interview_prep import router as interview_router
@@ -38,6 +39,7 @@ app.add_middleware(
 app.include_router(user_router)
 app.include_router(resume_router)
 app.include_router(skill_gap_router)
+app.include_router(resume_optimizer_router)
 app.include_router(career_router)
 app.include_router(job_router)
 app.include_router(interview_router)

@@ -1,0 +1,187 @@
+.resume-optimizer-container {
+    max-width: 1100px;
+    margin: 30px auto;
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+}
+
+.resume-optimizer-container h1 {
+    text-align: center;
+    color: #1e3a8a;
+    margin-bottom: 10px;
+}
+
+.resume-optimizer-container p {
+    text-align: center;
+    color: #666;
+    margin-bottom: 25px;
+}
+
+.selector {
+    margin: 25px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.selector label {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.selector select {
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}
+
+.resume-optimizer-container button {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    background: #2563eb;
+    color: white;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.resume-optimizer-container button:hover {
+    background: #1d4ed8;
+}
+
+.result-card {
+    margin-top: 35px;
+    padding: 25px;
+    background: #f8fafc;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.result-card h2 {
+    color: #1e293b;
+    margin-top: 20px;
+    margin-bottom: 15px;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 22px;
+    background: #e5e7eb;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(to right, #22c55e, #16a34a);
+    transition: width 0.5s ease;
+}
+
+.skills-box {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.green-skill {
+    background: #dcfce7;
+    color: #166534;
+    padding: 8px 14px;
+    border-radius: 20px;
+    font-weight: 600;
+}
+
+.red-skill {
+    background: #fee2e2;
+    color: #991b1b;
+    padding: 8px 14px;
+    border-radius: 20px;
+    font-weight: 600;
+}
+
+.summary-box {
+    background: #eff6ff;
+    padding: 20px;
+    border-left: 5px solid #2563eb;
+    border-radius: 10px;
+    line-height: 1.7;
+}
+
+.recommendation-list {
+    padding-left: 20px;
+}
+
+.recommendation-list li {
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+
+.optimized-resume {
+    background: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    max-height: 500px;
+    overflow-y: auto;
+    margin-top: 15px;
+}
+
+.optimized-resume pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-family: Consolas, monospace;
+    line-height: 1.6;
+}
+
+.copy-btn {
+    margin-top: 20px;
+    background: #16a34a !important;
+}
+
+.copy-btn:hover {
+    background: #15803d !important;
+}
+
+.success-box {
+    margin-top: 25px;
+    background: #dcfce7;
+    color: #166534;
+    padding: 15px;
+    text-align: center;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+hr {
+    margin: 30px 0;
+    border: none;
+    border-top: 1px solid #ddd;
+}
+
+@media (max-width: 768px) {
+
+    .resume-optimizer-container {
+        margin: 15px;
+        padding: 20px;
+    }
+
+    .skills-box {
+        justify-content: center;
+    }
+
+    .resume-optimizer-container button {
+        font-size: 16px;
+    }
+
+    .optimized-resume {
+        max-height: 350px;
+    }
+}

@@ -8,6 +8,7 @@ import NotFound from "./pages/NotFound";
 
 import ResumeAnalyzer from "./pages/ResumeAnalyzer";
 import SkillGap from "./pages/SkillGap";
+import ResumeOptimize from "./pages/ResumeOptimizer"
 import CareerRoadmap from "./pages/CareerRoadmap";
 import InterviewPrep from "./pages/InterviewPrep";
 import JobRecommendation from "./pages/JobRecommendation";
@@ -29,6 +30,8 @@ function App() {
       <Route path="/resume-analyzer" element={<ResumeAnalyzer />} />
 
       <Route path="/skill-gap" element={<SkillGap />} />
+
+      <Route path="/resume-optimizer" element={<ResumeOptimizer />} />
 
       <Route path="/career-roadmap" element={<CareerRoadmap />} />
 
