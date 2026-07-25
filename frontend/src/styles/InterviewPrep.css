@@ -41,6 +41,8 @@
     border-radius:10px;
     cursor:pointer;
     margin-bottom:30px;
+    margin-top:10px;
+    
 }
 
 .question-btn:hover{
@@ -71,13 +73,6 @@
 }
 
 .role-select{
-    width: 100%;
-    max-width: 300px;
-    padding: 12px 15px;
-    margin: 12px 0 25px 0;   /* Space above and below */
-    border: 1px solid #d1d5db;
-    border-radius: 8px;
-    font-size: 16px;
-    background: white;
-    cursor: pointer;
+    margin-bottom:20px;
 }
+
