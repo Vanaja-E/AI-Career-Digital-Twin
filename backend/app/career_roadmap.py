@@ -1,64 +1,77 @@
-roadmaps = {
-    "Python Full Stack Developer": [
-        "Python",
-        "OOP",
-        "HTML",
-        "CSS",
-        "JavaScript",
-        "React",
-        "Node.js",
-        "FastAPI",
-        "SQL",
-        "Git & GitHub",
-        "Docker",
-        "Build 3 Projects",
-        "Internship",
-        "Job Ready 🚀"
-    ],
+from app.services.gemini_service import generate_response
+import json
+import re
 
-    "Frontend Developer": [
-        "HTML",
-        "CSS",
-        "JavaScript",
-        "Bootstrap",
-        "React",
-        "Redux",
-        "REST APIs",
-        "Git & GitHub",
-        "Portfolio Website",
-        "Internship",
-        "Job Ready 🚀"
-    ],
 
-    "Backend Developer": [
-        "Python",
-        "OOP",
-        "FastAPI",
-        "Node.js",
-        "SQL",
-        "MongoDB",
-        "REST APIs",
-        "Docker",
-        "AWS Basics",
-        "Internship",
-        "Job Ready 🚀"
-    ],
+def get_roadmap(resume_text, target_role):
 
-    "Data Scientist": [
-        "Python",
-        "NumPy",
-        "Pandas",
-        "Matplotlib",
-        "Statistics",
-        "Machine Learning",
-        "Deep Learning",
-        "NLP",
-        "Projects",
-        "Internship",
-        "Job Ready 🚀"
+    prompt = f"""
+You are an expert career mentor.
+
+Based on the candidate's resume and target role, generate a personalized career roadmap.
+
+Resume:
+{resume_text}
+
+Target Role:
+{target_role}
+
+Return ONLY valid JSON.
+
+Format:
+
+{{
+  "current_level": "...",
+  "skills_to_learn": [
+    "...",
+    "..."
+  ],
+  "projects": [
+    "...",
+    "..."
+  ],
+  "certifications": [
+    "...",
+    "..."
+  ],
+  "monthly_plan": {{
+    "month_1": [
+      "...",
+      "..."
+    ],
+    "month_2": [
+      "...",
+      "..."
+    ],
+    "month_3": [
+      "...",
+      "..."
     ]
-}
+  }},
+  "career_tips": [
+    "...",
+    "..."
+  ]
+}}
 
+Return JSON only.
+"""
 
-def get_roadmap(role):
-    return roadmaps.get(role, [])
+    response = generate_response(prompt)
+
+    try:
+        cleaned = re.sub(r"```json|```", "", response).strip()
+        return json.loads(cleaned)
+    except Exception:
+        return {
+            "current_level": "",
+            "skills_to_learn": [],
+            "projects": [],
+            "certifications": [],
+            "monthly_plan": {
+                "month_1": [],
+                "month_2": [],
+                "month_3": []
+            },
+            "career_tips": []
+        }

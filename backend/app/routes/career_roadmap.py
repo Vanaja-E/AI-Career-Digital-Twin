@@ -1,5 +1,4 @@
 from fastapi import APIRouter
-
 from app.career_roadmap import get_roadmap
 
 router = APIRouter()
@@ -8,11 +7,10 @@ router = APIRouter()
 @router.post("/career-roadmap")
 async def career_roadmap(data: dict):
 
+    resume_text = data.get("resume_text", "")
     target_role = data.get("target_role", "")
 
-    roadmap = get_roadmap(target_role)
-
-    return {
-        "target_role": target_role,
-        "roadmap": roadmap
-    }
+    return get_roadmap(
+        resume_text,
+        target_role
+    )

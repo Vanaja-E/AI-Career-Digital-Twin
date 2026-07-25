@@ -11,7 +11,8 @@ function CareerRoadmap() {
       const response = await axios.post(
         "https://ai-career-digital-twin-7q8b.onrender.com/career-roadmap",
         {
-          target_role: role,
+           resume_text: resumeData.resume_text,
+           target_role: role
         }
       );
 
