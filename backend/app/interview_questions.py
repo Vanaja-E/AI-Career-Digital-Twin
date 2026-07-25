@@ -1,61 +1,66 @@
-questions = {
-    "Python": [
-        "What are Python decorators?",
-        "Explain list vs tuple.",
-        "What are generators?",
-        "Explain exception handling.",
-        "What is the difference between *args and **kwargs?"
-    ],
+from app.services.gemini_service import generate_response
+import json
+import re
 
-    "JavaScript": [
-        "Explain closures.",
-        "What is hoisting?",
-        "Difference between var, let and const.",
-        "Explain promises.",
-        "What is async/await?"
-    ],
 
-    "React": [
-        "What are Hooks?",
-        "Difference between state and props?",
-        "What is Virtual DOM?",
-        "Explain useEffect().",
-        "What is Context API?"
-    ],
+def get_questions(resume_text, target_role):
 
-    "SQL": [
-        "Difference between DELETE, TRUNCATE and DROP?",
-        "Explain JOIN types.",
-        "What is normalization?",
-        "Difference between WHERE and HAVING?",
-        "Explain indexing."
-    ],
+    prompt = f"""
+You are an expert technical interviewer.
 
-    "AWS": [
-        "What is EC2?",
-        "Difference between S3 and EBS?",
-        "Explain IAM.",
-        "What is VPC?",
-        "What is Auto Scaling?"
-    ],
+Generate interview questions for this candidate.
 
-    "FastAPI": [
-        "Why FastAPI is faster?",
-        "Difference between GET and POST?",
-        "Explain APIRouter.",
-        "What is dependency injection?",
-        "How does FastAPI perform validation?"
+Resume:
+{resume_text}
+
+Target Role:
+{target_role}
+
+Return ONLY valid JSON.
+
+Format:
+
+{{
+    "technical_questions":[
+        "...",
+        "...",
+        "..."
+    ],
+    "coding_questions":[
+        "...",
+        "...",
+        "..."
+    ],
+    "hr_questions":[
+        "...",
+        "...",
+        "..."
+    ],
+    "scenario_questions":[
+        "...",
+        "...",
+        "..."
+    ],
+    "interview_tips":[
+        "...",
+        "...",
+        "..."
     ]
-}
+}}
 
+Return JSON only.
+"""
 
-def get_questions(user_skills):
+    response = generate_response(prompt)
 
-    result = {}
-
-    for skill in user_skills:
-
-        if skill in questions:
-            result[skill] = questions[skill]
-
-    return result
+    try:
+        cleaned = re.sub(r"```json|```", "", response).strip()
+        return json.loads(cleaned)
+    except Exception:
+        return {
+            "technical_questions": [],
+            "coding_questions": [],
+            "hr_questions": [],
+            "scenario_questions": [],
+            "interview_tips": []
+        }
